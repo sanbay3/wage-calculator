@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>時給計算機</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1 class="title">時給計算機</h1>
+        <p class="lead">時給・労働時間から日給・残業代・月給・年収を計算します（残業割増 25%）</p>
+      </header>
+
+      <main class="main">
+        <section class="card" aria-labelledby="input-heading">
+          <h2 id="input-heading" class="card__title">入力</h2>
+
+          <div class="field">
+            <label class="field__label" for="hourly-wage">時給（円）</label>
+            <input
+              id="hourly-wage"
+              class="field__input"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="1"
+              placeholder="例: 1500"
+              autocomplete="off"
+            />
+          </div>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">通常労働時間（1日あたり）</legend>
+            <div class="time-row">
+              <div class="field field--inline">
+                <label class="field__label" for="normal-hours">時間</label>
+                <input
+                  id="normal-hours"
+                  class="field__input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  placeholder="0"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field field--inline">
+                <label class="field__label" for="normal-minutes">分</label>
+                <input
+                  id="normal-minutes"
+                  class="field__input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="59"
+                  step="1"
+                  placeholder="0"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">残業時間（1日あたり）</legend>
+            <div class="time-row">
+              <div class="field field--inline">
+                <label class="field__label" for="overtime-hours">時間</label>
+                <input
+                  id="overtime-hours"
+                  class="field__input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="1"
+                  placeholder="0"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field field--inline">
+                <label class="field__label" for="overtime-minutes">分</label>
+                <input
+                  id="overtime-minutes"
+                  class="field__input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  max="59"
+                  step="1"
+                  placeholder="0"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label class="field__label" for="work-days">月の労働日数</label>
+            <input
+              id="work-days"
+              class="field__input"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="1"
+              placeholder="例: 20"
+              autocomplete="off"
+            />
+          </div>
+        </section>
+
+        <div class="errors" id="errors" role="alert" aria-live="polite" hidden></div>
+
+        <section class="card card--result" aria-labelledby="result-heading">
+          <h2 id="result-heading" class="card__title">計算結果</h2>
+          <dl class="results">
+            <div class="results__row">
+              <dt class="results__term">1日の給与</dt>
+              <dd class="results__def" id="out-daily">—</dd>
+            </div>
+            <div class="results__row">
+              <dt class="results__term">残業代</dt>
+              <dd class="results__def" id="out-overtime">—</dd>
+            </div>
+            <div class="results__row">
+              <dt class="results__term">月給（通常＋残業）</dt>
+              <dd class="results__def" id="out-monthly">—</dd>
+            </div>
+            <div class="results__row">
+              <dt class="results__term">年収（月給×12）</dt>
+              <dd class="results__def" id="out-annual">—</dd>
+            </div>
+          </dl>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__note">法定割増率 25% を適用した概算です。実際の給与は就業規則・36協定等に従ってください。</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
