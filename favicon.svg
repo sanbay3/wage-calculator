@@ -1,16 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0f1419" />
-  <circle cx="32" cy="32" r="18" fill="#3d9cf0" />
-  <text
-    x="32"
-    y="33"
-    text-anchor="middle"
-    dominant-baseline="middle"
-    font-family="Segoe UI, Arial, sans-serif"
-    font-size="26"
-    font-weight="700"
-    fill="#ffffff"
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="円記号">
+  <!-- 小さいサイズでも判別しやすいよう、ベタ塗り＋太線のベクターで表現 -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4aa8ff" />
+      <stop offset="1" stop-color="#1f6fd4" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)" />
+  <!-- タブ背景が明暗どちらでも輪郭が残るよう細い縁取り -->
+  <rect
+    x="1"
+    y="1"
+    width="62"
+    height="62"
+    rx="13"
+    fill="none"
+    stroke="#0b1220"
+    stroke-opacity="0.35"
+    stroke-width="2"
+  />
+  <g
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
-    &#165;
-  </text>
+    <!-- 円記号：上から中央へ向かう2本の斜線＋2本の横線 -->
+    <path d="M18 13 L32 38" />
+    <path d="M46 13 L32 38" />
+    <path d="M14 24 H50" />
+    <path d="M14 32 H50" />
+  </g>
 </svg>
