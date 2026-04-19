@@ -249,6 +249,19 @@ body {
   text-align: center;
 }
 
+.footer > p:not(.footer__note) {
+  margin: 0.75rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.footer .brand {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 @media (min-width: 480px) {
   .app {
     padding: 2rem 1.25rem 2.5rem;
