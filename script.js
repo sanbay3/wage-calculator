@@ -166,7 +166,5 @@
       inputs[j].addEventListener('input', onInput);
       inputs[j].addEventListener('change', onInput);
     }
-
-    computeAndRender();
   });
 })();
