@@ -27,6 +27,8 @@
       el.workDays,
     ];
 
+    var touched = new Set();
+
     function parseNonNegativeInt(raw, fieldLabel) {
       if (raw === null || raw === undefined) {
         return { ok: false, message: fieldLabel + 'を入力してください。' };
@@ -92,45 +94,32 @@
     }
 
     function computeAndRender() {
-      var messages = [];
+      var allErrors = [];
+      var touchedErrors = [];
 
-      var wage = parseNonNegativeInt(el.hourlyWage.value, '時給');
-      if (!wage.ok) {
-        messages.push(wage.message);
+      function validate(result, fieldId) {
+        if (!result.ok) {
+          allErrors.push(result.message);
+          if (touched.has(fieldId)) {
+            touchedErrors.push(result.message);
+          }
+        }
+        return result;
       }
 
-      var nh = parseNonNegativeInt(el.normalHours.value, '通常労働時間（時間）');
-      if (!nh.ok) {
-        messages.push(nh.message);
-      }
+      var wage = validate(parseNonNegativeInt(el.hourlyWage.value, '時給'), 'hourly-wage');
+      var nh = validate(parseNonNegativeInt(el.normalHours.value, '通常労働時間（時間）'), 'normal-hours');
+      var nm = validate(parseMinutes(el.normalMinutes.value, '通常労働時間（分）'), 'normal-minutes');
+      var oh = validate(parseNonNegativeInt(el.overtimeHours.value, '残業時間（時間）'), 'overtime-hours');
+      var om = validate(parseMinutes(el.overtimeMinutes.value, '残業時間（分）'), 'overtime-minutes');
+      var wd = validate(parseNonNegativeInt(el.workDays.value, '月の労働日数'), 'work-days');
 
-      var nm = parseMinutes(el.normalMinutes.value, '通常労働時間（分）');
-      if (!nm.ok) {
-        messages.push(nm.message);
-      }
+      showErrors(touchedErrors);
 
-      var oh = parseNonNegativeInt(el.overtimeHours.value, '残業時間（時間）');
-      if (!oh.ok) {
-        messages.push(oh.message);
-      }
-
-      var om = parseMinutes(el.overtimeMinutes.value, '残業時間（分）');
-      if (!om.ok) {
-        messages.push(om.message);
-      }
-
-      var wd = parseNonNegativeInt(el.workDays.value, '月の労働日数');
-      if (!wd.ok) {
-        messages.push(wd.message);
-      }
-
-      if (messages.length > 0) {
-        showErrors(messages);
+      if (allErrors.length > 0) {
         setPlaceholder();
         return;
       }
-
-      showErrors([]);
 
       var hourly = wage.value;
       var normalH = nh.value;
@@ -158,13 +147,15 @@
       el.outAnnual.textContent = formatYen(Math.round(annual));
     }
 
-    function onInput() {
-      computeAndRender();
-    }
-
     for (var j = 0; j < inputs.length; j++) {
-      inputs[j].addEventListener('input', onInput);
-      inputs[j].addEventListener('change', onInput);
+      inputs[j].addEventListener('input', function (e) {
+        touched.add(e.target.id);
+        computeAndRender();
+      });
+      inputs[j].addEventListener('change', function (e) {
+        touched.add(e.target.id);
+        computeAndRender();
+      });
     }
   });
 })();
